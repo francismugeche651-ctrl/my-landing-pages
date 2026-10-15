@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="en-KE">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- =====================================================================
+       ELYSS SCHOOL – ADMISSIONS LANDING PAGE
+       Static HTML/CSS/JS for Netlify. See README.md for setup.
+       Every line marked "VERIFY" must be confirmed with school management
+       before the page is launched or used in paid campaigns.
+       ===================================================================== -->
+
+  <!-- ===================== CONSENT DEFAULTS + DATALAYER ===================
+       Must run BEFORE the GTM container snippet. Sets Google Consent Mode v2
+       defaults to "denied" until the visitor accepts in the cookie banner.
+       Tags in GTM (GA4, Google Ads, Meta Pixel) should respect consent.
+       ===================================================================== -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ window.dataLayer.push(arguments); }
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      analytics_storage: 'denied',
+      functionality_storage: 'granted',
+      security_storage: 'granted',
+      wait_for_update: 500
+    });
+    // Re-apply a previously saved choice as early as possible.
+    try {
+      var savedConsent = localStorage.getItem('elyss_consent_v1');
+      if (savedConsent === 'granted') {
+        gtag('consent', 'update', {
+          ad_storage: 'granted', ad_user_data: 'granted',
+          ad_personalization: 'granted', analytics_storage: 'granted'
+        });
+      }
+    } catch (e) { /* storage unavailable – stay on defaults */ }
+  </script>
+
+  <!-- ===================== GOOGLE TAG MANAGER (HEAD) ======================
+       PASTE the GTM <head> snippet from your container here, replacing
+       GTM-XXXXXXX with your container ID. It should look like:
+
+       <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+       new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+       j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+       'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+       })(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+
+       Do NOT add gtag.js (GA4), Google Ads or Meta Pixel code directly.
+       All of them are managed inside GTM.
+       ===================================================================== -->
+  <!-- End Google Tag Manager (HEAD) -->
+
+  <!-- ===================== SEO ===================== -->
+  <title>Elyss School Admissions | Christian Early Learning &amp; Primary School in Kikuyu</title>
+  <meta name="description" content="Elyss School is a private, Christian, child-centred school offering early learning and primary education in Kikuyu, Kiambu County. Enquire about admission today.">
+  <meta name="robots" content="index, follow">
+  <!-- VERIFY: set the canonical URL once the final domain is confirmed
+       (elyssschool.co.ke vs elyssschool.sc.ke vs a Netlify/sub-domain). -->
+  <!-- <link rel="canonical" href="https://admissions.YOUR-DOMAIN/"> -->
+  <meta name="theme-color" content="#17406d">
+
+  <!-- Open Graph / social sharing -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Elyss School">
+  <meta property="og:title" content="Elyss School Admissions – Fun Learning, Firm Foundations">
+  <meta property="og:description" content="A caring Christian school in Kikuyu, Kiambu County, offering early learning and primary education. Enquire about admission.">
+  <meta property="og:locale" content="en_KE">
+  <!-- Add once an approved image exists (1200x630, no identifiable children without permission):
+  <meta property="og:image" content="https://YOUR-DOMAIN/og-image.jpg">
+  <meta property="og:url" content="https://YOUR-DOMAIN/"> -->
+  <meta name="twitter:card" content="summary">
+
+  <!-- VERIFY: enable local-business structured data only after the school
+       confirms the official name, phone, address and domain.
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "School",
+    "name": "Elyss School",
+    "url": "https://YOUR-DOMAIN/",
+    "telephone": "+254711650405",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Kikuyu Road, Thogoto",
+      "addressLocality": "Kikuyu",
+      "addressRegion": "Kiambu County",
+      "addressCountry": "KE"
+    }
+  }
+  </script> -->
+
+  <!-- Favicon (placeholder monogram – replace with the official logo) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2317406d'/%3E%3Ctext x='32' y='44' font-family='Arial,sans-serif' font-size='36' font-weight='700' text-anchor='middle' fill='%23f2b33d'%3EE%3C/text%3E%3C/svg%3E">
+
+  <!-- Fonts (display=swap so text renders immediately) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* =====================================================================
+       BRAND TOKENS – PENDING VERIFICATION
+       These colours are NEUTRAL PLACEHOLDERS chosen for warmth and
+       accessible contrast. They are NOT official Elyss School colours.
+       Replace with HEX values sampled from the approved logo/brand guide.
+       ===================================================================== */
+    :root {
+      --brand-primary: #17406d;   /* PENDING VERIFICATION – headings, header */
+      --brand-primary-dark: #0f2c4c;
+      --brand-secondary: #2f7d5b; /* PENDING VERIFICATION – supporting accents */
+      --brand-accent: #f2b33d;    /* PENDING VERIFICATION – decorative highlights */
+      --cta: #c2410c;             /* PENDING VERIFICATION – CTA buttons (white text AA) */
+      --cta-hover: #9a3412;
+
+      --bg: #fffaf2;
+      --surface: #ffffff;
+      --surface-alt: #f4efe6;
+      --text: #1f2933;
+      --text-muted: #52606d;
+      --border: #e2d9ca;
+      --success: #1e7b4b;
+      --success-bg: #e8f6ee;
+      --error: #b42318;
+      --error-bg: #fdecea;
+      --focus: #2563eb;
+
+      --radius: 14px;
+      --radius-lg: 22px;
+      --shadow: 0 10px 30px rgba(15, 44, 76, .08);
+      --shadow-sm: 0 2px 8px rgba(15, 44, 76, .06);
+      --maxw: 1160px;
+      --header-h: 68px;
+      --font-head: "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      --font-body: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+    body {
+      margin: 0; background: var(--bg); color: var(--text);
+      font-family: var(--font-body); font-size: 1.0625rem; line-height: 1.6;
+    }
+    img, svg { max-width: 100%; display: block; }
+    h1, h2, h3 { font-family: var(--font-head); color: var(--brand-primary-dark); line-height: 1.2; margin: 0 0 .6em; }
+    h1 { font-size: clamp(2rem, 5.2vw, 3.3rem); font-weight: 800; letter-spacing: -.01em; }
+    h2 { font-size: clamp(1.6rem, 3.6vw, 2.3rem); font-weight: 800; }
+    h3 { font-size: 1.2rem; font-weight: 700; }
+    p { margin: 0 0 1em; }
+    a { color: var(--brand-primary); }
+    a:hover { color: var(--cta-hover); }
+    :focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 6px; }
+    [id] { scroll-margin-top: calc(var(--header-h) + 12px); }
+
+    .container { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 16px; }
+    @media (min-width: 768px) { .container { padding: 0 28px; } }
+    .section { padding: 64px 0; }
+    @media (min-width: 960px) { .section { padding: 88px 0; } }
+    .section--alt { background: var(--surface-alt); }
+    .section-head { max-width: 720px; margin: 0 auto 40px; text-align: center; }
+    .eyebrow {
+      display: inline-block; font-family: var(--font-head); font-weight: 800; font-size: .85rem;
+      letter-spacing: .08em; text-transform: uppercase; color: var(--brand-secondary); margin-bottom: .6em;
+    }
+    .lead { font-size: 1.15rem; color: var(--text-muted); }
+    .muted { color: var(--text-muted); }
+    .small { font-size: .9rem; }
+
+    .skip-link {
+      position: absolute; left: 12px; top: -60px; z-index: 1000; background: var(--brand-primary);
+      color: #fff; padding: 10px 16px; border-radius: 8px; text-decoration: none; font-weight: 700;
+    }
+    .skip-link:focus { top: 12px; color: #fff; }
+    .visually-hidden {
+      position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+    }
+
+    /* ----- Buttons ----- */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: .5em;
+      min-height: 48px; padding: 12px 24px; border-radius: 999px; border: 2px solid transparent;
+      font-family: var(--font-head); font-weight: 800; font-size: 1rem; line-height: 1.2;
+      text-decoration: none; cursor: pointer; transition: background .15s, color .15s, transform .15s, box-shadow .15s;
+    }
+    .btn:active { transform: translateY(1px); }
+    .btn--primary { background: var(--cta); color: #fff; box-shadow: 0 6px 16px rgba(194, 65, 12, .25); }
+    .btn--primary:hover { background: var(--cta-hover); color: #fff; }
+    .btn--outline { background: transparent; color: var(--brand-primary); border-color: var(--brand-primary); }
+    .btn--outline:hover { background: var(--brand-primary); color: #fff; }
+    .btn--light { background: #fff; color: var(--brand-primary-dark); }
+    .btn--light:hover { background: var(--brand-accent); color: var(--brand-primary-dark); }
+    .btn--ghost-light { background: transparent; color: #fff; border-color: rgba(255,255,255,.7); }
+    .btn--ghost-light:hover { background: rgba(255,255,255,.12); color: #fff; }
+    .btn--block { width: 100%; }
+    .btn svg { width: 20px; height: 20px; flex: none; }
+    .btn-row { display: flex; flex-wrap: wrap; gap: 12px; }
+
+    /* ----- Header ----- */
+    .site-header {
+      position: sticky; top: 0; z-index: 100; background: rgba(255, 250, 242, .96);
+      backdrop-filter: saturate(140%) blur(8px); border-bottom: 1px solid var(--border);
+    }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; height: var(--header-h); gap: 16px; }
+    .logo { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--brand-primary-dark); }
+    .logo-mark {
+      width: 40px; height: 40px; border-radius: 11px; background: var(--brand-primary); color: var(--brand-accent);
+      display: grid; place-items: center; font-family: var(--font-head); font-weight: 800; font-size: 1.35rem;
+    }
+    .logo-text { font-family: var(--font-head); font-weight: 800; font-size: 1.2rem; line-height: 1.05; }
+    .logo-text small { display: block; font-size: .7rem; font-weight: 700; color: var(--text-muted); letter-spacing: .04em; }
+    .nav-list { list-style: none; margin: 0; padding: 0; display: flex; gap: 4px; align-items: center; }
+    .nav-list a {
+      display: block; padding: 10px 12px; border-radius: 8px; text-decoration: none;
+      color: var(--text); font-weight: 600; font-size: .98rem;
+    }
+    .nav-list a:hover { background: var(--surface-alt); color: var(--brand-primary); }
+    .header-cta { display: none; }
+    .nav-toggle {
+      display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px;
+      border: 1px solid var(--border); border-radius: 12px; background: var(--surface); cursor: pointer; color: var(--brand-primary-dark);
+    }
+    .nav-toggle svg { width: 24px; height: 24px; }
+    .primary-nav { display: none; }
+    .primary-nav.is-open {
+      display: block; position: absolute; left: 0; right: 0; top: var(--header-h);
+      background: var(--bg); border-bottom: 1px solid var(--border); box-shadow: var(--shadow); padding: 8px 16px 20px;
+    }
+    .primary-nav.is-open .nav-list { flex-direction: column; align-items: stretch; }
+    .primary-nav.is-open .nav-list a { padding: 14px 12px; font-size: 1.05rem; }
+    .primary-nav .nav-cta-mobile { margin-top: 10px; }
+    @media (min-width: 1000px) {
+      .nav-toggle { display: none; }
+      .primary-nav, .primary-nav.is-open { display: block; position: static; box-shadow: none; border: 0; padding: 0; background: none; }
+      .primary-nav .nav-cta-mobile { display: none; }
+      .header-cta { display: inline-flex; }
+    }
+
+    /* ----- Hero ----- */
+    .hero { position: relative; overflow: hidden; padding: 48px 0 56px; }
+    @media (min-width: 960px) { .hero { padding: 80px 0 96px; } }
+    .hero::before {
+      content: ""; position: absolute; inset: auto -20% -40% auto; width: 620px; height: 620px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(242,179,61,.28), rgba(242,179,61,0) 70%); pointer-events: none;
+    }
+    .hero-grid { display: grid; gap: 40px; align-items: center; position: relative; }
+    @media (min-width: 960px) { .hero-grid { grid-template-columns: 1.1fr .9fr; gap: 56px; } }
+    .hero .lead { max-width: 580px; }
+    .hero-motto {
+      display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 999px;
+      background: var(--surface); border: 1px solid var(--border); font-weight: 700; font-size: .9rem; color: var(--brand-secondary); margin-bottom: 18px;
+    }
+    .hero-motto::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--brand-accent); }
+    .trust-list { list-style: none; padding: 0; margin: 28px 0 0; display: grid; gap: 10px; }
+    @media (min-width: 560px) { .trust-list { grid-template-columns: repeat(3, auto); justify-content: start; gap: 10px 22px; } }
+    .trust-list li { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: .95rem; color: var(--text-muted); }
+    .trust-list svg { width: 20px; height: 20px; color: var(--brand-secondary); flex: none; }
+    .hero-visual {
+      position: relative; border-radius: var(--radius-lg); background: linear-gradient(160deg, #e9f1fb, #fdf1da);
+      aspect-ratio: 5 / 4; box-shadow: var(--shadow); overflow: hidden;
+    }
+    .hero-visual svg { width: 100%; height: 100%; }
+    .hero-visual figcaption { position: absolute; left: 14px; bottom: 12px; font-size: .78rem; color: var(--text-muted); background: rgba(255,255,255,.8); padding: 3px 10px; border-radius: 999px; }
+
+    /* ----- Cards ----- */
+    .grid { display: grid; gap: 20px; }
+    @media (min-width: 640px) { .grid--2 { grid-template-columns: repeat(2, 1fr); } .grid--4 { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1000px) { .grid--4 { grid-template-columns: repeat(4, 1fr); } .grid--3 { grid-template-columns: repeat(3, 1fr); } }
+    .card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 26px; box-shadow: var(--shadow-sm); height: 100%;
+    }
+    .card p:last-child { margin-bottom: 0; }
+    .icon-badge {
+      width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; margin-bottom: 16px;
+      background: #eaf2fb; color: var(--brand-primary);
+    }
+    .icon-badge svg { width: 28px; height: 28px; }
+    .icon-badge--green { background: #e6f3ec; color: var(--brand-secondary); }
+    .icon-badge--sun { background: #fdf1da; color: #9a6400; }
+    .icon-badge--cta { background: #fdebe2; color: var(--cta); }
+
+    .stage-card { display: flex; flex-direction: column; }
+    .stage-card .tag { align-self: flex-start; font-size: .8rem; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: var(--brand-secondary); background: #e6f3ec; padding: 4px 10px; border-radius: 999px; margin-bottom: 12px; }
+    .stage-card .btn { margin-top: auto; align-self: flex-start; }
+    .stage-card p { flex: 1 0 auto; }
+
+    .activities { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; list-style: none; padding: 0; margin: 0; }
+    .activities li {
+      display: inline-flex; align-items: center; gap: 10px; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 999px; padding: 10px 20px; font-weight: 700; font-family: var(--font-head); color: var(--brand-primary-dark);
+    }
+    .activities svg { width: 22px; height: 22px; color: var(--cta); }
+
+    .split { display: grid; gap: 32px; align-items: start; }
+    @media (min-width: 960px) { .split { grid-template-columns: 1fr 1fr; gap: 56px; } }
+    .pathway { border-left: 4px solid var(--brand-accent); padding: 4px 0 4px 18px; margin-bottom: 22px; }
+    .pathway h3 { margin-bottom: .3em; }
+    .note { font-size: .92rem; color: var(--text-muted); background: var(--surface); border: 1px dashed var(--border); border-radius: 10px; padding: 12px 14px; }
+
+    .campus-card h3 { display: flex; align-items: center; gap: 10px; }
+    .campus-card .meta { list-style: none; padding: 0; margin: 0 0 18px; display: grid; gap: 8px; color: var(--text-muted); }
+    .campus-card .meta li { display: flex; gap: 8px; align-items: flex-start; }
+    .campus-card .meta svg { width: 20px; height: 20px; flex: none; margin-top: 3px; color: var(--brand-secondary); }
+
+    .steps { list-style: none; padding: 0; margin: 0; display: grid; gap: 20px; counter-reset: step; }
+    @media (min-width: 860px) { .steps { grid-template-columns: repeat(3, 1fr); } }
+    .steps li { position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 26px 24px 24px 24px; }
+    .steps li::before {
+      counter-increment: step; content: counter(step); display: grid; place-items: center; width: 40px; height: 40px;
+      border-radius: 50%; background: var(--brand-primary); color: #fff; font-family: var(--font-head); font-weight: 800; margin-bottom: 14px;
+    }
+
+    /* ----- Enquiry form ----- */
+    .enquiry-wrap { display: grid; gap: 32px; }
+    @media (min-width: 960px) { .enquiry-wrap { grid-template-columns: .8fr 1.2fr; gap: 56px; align-items: start; } }
+    .enquiry-aside .contact-list { list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 12px; }
+    .contact-list a {
+      display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: var(--radius);
+      background: var(--surface); border: 1px solid var(--border); text-decoration: none; color: var(--text); font-weight: 700;
+    }
+    .contact-list a:hover { border-color: var(--brand-primary); color: var(--brand-primary); }
+    .contact-list svg { width: 24px; height: 24px; color: var(--brand-secondary); flex: none; }
+    .contact-list span small { display: block; font-weight: 500; color: var(--text-muted); font-size: .85rem; }
+
+    .form-card { background: var(--surface); border-radius: var(--radius-lg); box-shadow: var(--shadow); border: 1px solid var(--border); padding: 24px; }
+    @media (min-width: 640px) { .form-card { padding: 36px; } }
+    .form-grid { display: grid; gap: 18px; }
+    @media (min-width: 640px) { .form-grid { grid-template-columns: 1fr 1fr; } .form-grid .full { grid-column: 1 / -1; } }
+    .field label, .field legend { display: block; font-weight: 700; margin-bottom: 6px; font-size: .98rem; }
+    .field .req { color: var(--error); margin-left: 2px; }
+    .field .opt { color: var(--text-muted); font-weight: 500; font-size: .88rem; }
+    .field input[type="text"], .field input[type="tel"], .field input[type="email"], .field select, .field textarea {
+      width: 100%; min-height: 50px; padding: 12px 14px; border: 1.5px solid #c9bfae; border-radius: 10px;
+      background: #fff; color: var(--text); font: inherit; font-size: 1rem;
+    }
+    .field textarea { min-height: 110px; resize: vertical; }
+    .field select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2352606d' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; background-size: 20px; padding-right: 42px; }
+    .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--focus); outline: 3px solid rgba(37, 99, 235, .25); outline-offset: 0; }
+    .field .hint { font-size: .85rem; color: var(--text-muted); margin-top: 4px; }
+    .field .error-msg { display: none; color: var(--error); font-size: .88rem; font-weight: 600; margin-top: 6px; }
+    .field.has-error input, .field.has-error select, .field.has-error textarea { border-color: var(--error); background: #fffafa; }
+    .field.has-error .error-msg { display: block; }
+    fieldset.field { border: 0; padding: 0; margin: 0; min-width: 0; }
+    .radio-row { display: flex; flex-wrap: wrap; gap: 10px; }
+    .radio-row label {
+      display: inline-flex; align-items: center; gap: 8px; margin: 0; padding: 10px 16px; min-height: 46px;
+      border: 1.5px solid #c9bfae; border-radius: 999px; cursor: pointer; font-weight: 600; background: #fff;
+    }
+    .radio-row input { accent-color: var(--brand-primary); width: 18px; height: 18px; }
+    .radio-row label:has(input:checked) { border-color: var(--brand-primary); background: #eaf2fb; }
+    .check { display: flex; gap: 12px; align-items: flex-start; font-weight: 500 !important; }
+    .check input { width: 22px; height: 22px; margin-top: 2px; flex: none; accent-color: var(--brand-primary); }
+    .hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    .form-alert { display: none; border-radius: 12px; padding: 14px 16px; margin-bottom: 18px; font-weight: 600; }
+    .form-alert.is-visible { display: block; }
+    .form-alert--error { background: var(--error-bg); color: var(--error); border: 1px solid #f5c2bd; }
+    .form-alert ul { margin: 6px 0 0; padding-left: 20px; font-weight: 500; }
+    .form-alert a { color: inherit; }
+    .form-success { display: none; text-align: center; padding: 20px 8px; }
+    .form-success.is-visible { display: block; }
+    .form-success .icon-ok { width: 72px; height: 72px; border-radius: 50%; background: var(--success-bg); color: var(--success); display: grid; place-items: center; margin: 0 auto 16px; }
+    .form-success .icon-ok svg { width: 38px; height: 38px; }
+    .btn[aria-busy="true"] { opacity: .8; cursor: progress; }
+    .spinner { width: 18px; height: 18px; border: 3px solid rgba(255,255,255,.4); border-top-color: #fff; border-radius: 50%; animation: spin .8s linear infinite; display: none; }
+    .btn[aria-busy="true"] .spinner { display: inline-block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) { .spinner { animation-duration: 2s; } }
+
+    /* ----- FAQ ----- */
+    .faq { max-width: 820px; margin: 0 auto; display: grid; gap: 12px; }
+    .faq details { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); }
+    .faq summary {
+      list-style: none; cursor: pointer; padding: 18px 54px 18px 20px; font-family: var(--font-head); font-weight: 700;
+      font-size: 1.08rem; color: var(--brand-primary-dark); position: relative; min-height: 48px;
+    }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary::after {
+      content: "+"; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-size: 1.6rem; line-height: 1; color: var(--cta);
+    }
+    .faq details[open] summary::after { content: "–"; }
+    .faq .answer { padding: 0 20px 18px; color: var(--text-muted); }
+    .faq .answer p:last-child { margin-bottom: 0; }
+
+    /* ----- Final CTA ----- */
+    .final-cta { background: var(--brand-primary); color: #fff; border-radius: var(--radius-lg); padding: 44px 24px; text-align: center; position: relative; overflow: hidden; }
+    @media (min-width: 768px) { .final-cta { padding: 64px 48px; } }
+    .final-cta h2 { color: #fff; }
+    .final-cta p { color: #dbe7f5; max-width: 620px; margin-left: auto; margin-right: auto; }
+    .final-cta .btn-row { justify-content: center; margin-top: 24px; }
+    .final-cta::after { content: ""; position: absolute; width: 260px; height: 260px; border-radius: 50%; background: rgba(242,179,61,.18); right: -80px; top: -90px; }
+
+    /* ----- Footer ----- */
+    .site-footer { background: var(--brand-primary-dark); color: #c9d6e6; padding: 56px 0 120px; margin-top: 64px; }
+    @media (min-width: 960px) { .site-footer { padding-bottom: 40px; } }
+    .site-footer a { color: #fff; }
+    .site-footer h2 { color: #fff; font-size: 1.1rem; margin-bottom: .8em; }
+    .footer-grid { display: grid; gap: 32px; }
+    @media (min-width: 768px) { .footer-grid { grid-template-columns: 1.3fr 1fr 1fr; } }
+    .footer-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,.15); margin-top: 40px; padding-top: 20px; display: flex; flex-wrap: wrap; gap: 12px 24px; justify-content: space-between; font-size: .9rem; }
+    .linklike { background: none; border: 0; padding: 0; color: #fff; text-decoration: underline; font: inherit; cursor: pointer; }
+    .footer-motto { font-family: var(--font-head); font-weight: 700; color: var(--brand-accent); }
+
+    /* ----- Sticky mobile action bar ----- */
+    .mobile-bar {
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 90; display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 8px;
+      padding: 10px 12px calc(10px + env(safe-area-inset-bottom)); background: rgba(255,255,255,.97);
+      border-top: 1px solid var(--border); box-shadow: 0 -6px 20px rgba(15,44,76,.08); transition: transform .25s;
+    }
+    .mobile-bar .btn { min-height: 48px; padding: 10px 12px; font-size: .95rem; }
+    .mobile-bar.is-hidden { transform: translateY(110%); }
+    @media (min-width: 960px) { .mobile-bar { display: none; } }
+
+    /* ----- Consent banner ----- */
+    .consent {
+      position: fixed; z-index: 200; left: 12px; right: 12px; bottom: 12px; max-width: 560px; margin-left: auto;
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow);
+      padding: 18px; display: none;
+    }
+    .consent.is-visible { display: block; }
+    @media (max-width: 959px) { .consent { bottom: calc(80px + env(safe-area-inset-bottom)); } }
+    .consent h2 { font-size: 1.05rem; margin-bottom: .4em; }
+    .consent p { font-size: .93rem; color: var(--text-muted); margin-bottom: 12px; }
+    .consent .btn { min-height: 44px; padding: 10px 18px; font-size: .95rem; }
+  </style>
+</head>
+<body>
+  <!-- ===================== GOOGLE TAG MANAGER (BODY) ======================
+       PASTE the GTM <noscript> snippet immediately after the opening <body>
+       tag, replacing GTM-XXXXXXX:
+
+       <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+       height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+       ===================================================================== -->
+  <!-- End Google Tag Manager (BODY) -->
+
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <!-- Placeholder wordmark. Replace with the official logo (SVG/WebP) once approved. -->
+      <a class="logo" href="#top" aria-label="Elyss School – back to top">
+        <span class="logo-mark" aria-hidden="true">E</span>
+        <span class="logo-text">Elyss School<small>KIKUYU · KIAMBU</small></span>
+      </a>
+
+      <nav class="primary-nav" id="primary-nav" aria-label="Main">
+        <ul class="nav-list">
+          <li><a href="#why-elyss">Why Elyss</a></li>
+          <li><a href="#learning">Learning</a></li>
+          <li><a href="#campuses">Campuses</a></li>
+          <li><a href="#admissions">Admissions</a></li>
+          <li><a href="#faqs">FAQs</a></li>
+        </ul>
+        <a class="btn btn--primary btn--block nav-cta-mobile" href="#enquire" data-cta="primary" data-cta-location="nav_mobile">Enquire About Admission</a>
+      </nav>
+
+      <a class="btn btn--primary header-cta" href="#enquire" data-cta="primary" data-cta-location="header">Enquire About Admission</a>
+
+      <button class="nav-toggle" type="button" aria-controls="primary-nav" aria-expanded="false" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path class="icon-open" d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <span id="top"></span>
+
+    <!-- ===================== HERO ===================== -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div>
+          <p class="hero-motto">Fun Learning. For a Firm Foundation. For God’s Glory.</p>
+          <h1 id="hero-title">Growing confident learners through fun learning and firm foundations</h1>
+          <p class="lead">Elyss School is a private, Christian, child-centred school offering early learning and primary education in Kikuyu, Kiambu County. Tell us about your child and our admissions team will be in touch.</p>
+          <div class="btn-row">
+            <a class="btn btn--primary" href="#enquire" data-cta="primary" data-cta-location="hero">
+              Enquire About Admission
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <!-- VERIFY: confirm +254 711 650 405 is the current admissions line. -->
+            <a class="btn btn--outline" href="tel:+254711650405" data-contact="phone" data-contact-location="hero">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>
+              Call the School
+            </a>
+          </div>
+          <ul class="trust-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Christian, child-centred</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Early learning &amp; primary</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Thogoto &amp; Lusigetti campuses</li>
+          </ul>
+        </div>
+
+        <!-- HERO IMAGE SLOT: replace this illustration with an approved, optimised
+             photo of the school (WebP/AVIF, ~1200px wide, with width/height attrs
+             and descriptive alt text). Only use photos of children with the
+             school's documented permission. Example:
+             <img src="hero.webp" width="1200" height="960" alt="Learners in an Elyss School classroom" fetchpriority="high"> -->
+        <figure class="hero-visual" style="margin:0">
+          <svg viewBox="0 0 500 400" role="img" aria-labelledby="hero-illus-title">
+            <title id="hero-illus-title">Illustration of a sun, books and building blocks representing early learning</title>
+            <circle cx="390" cy="92" r="48" fill="#f2b33d"/>
+            <g stroke="#f2b33d" stroke-width="6" stroke-linecap="round">
+              <path d="M390 22v14M390 148v14M320 92h14M446 92h14M341 43l10 10M429 131l10 10M341 141l10-10M429 53l10-10"/>
+            </g>
+            <path d="M0 330c90-40 180-48 260-30s160 20 240-8v108H0z" fill="#cfe3d6"/>
+            <path d="M0 356c110-26 210-20 300-4s140 10 200 0v48H0z" fill="#2f7d5b" opacity=".85"/>
+            <!-- book stack -->
+            <rect x="70" y="268" width="150" height="26" rx="5" fill="#17406d"/>
+            <rect x="82" y="242" width="132" height="26" rx="5" fill="#c2410c"/>
+            <rect x="64" y="216" width="140" height="26" rx="5" fill="#2f7d5b"/>
+            <path d="M80 229h96M94 255h96M86 281h110" stroke="#fff" stroke-opacity=".5" stroke-width="3"/>
+            <!-- blocks -->
+            <g font-family="Nunito, Arial, sans-serif" font-weight="800" font-size="40" text-anchor="middle">
+              <rect x="262" y="236" width="62" height="62" rx="10" fill="#fff" stroke="#17406d" stroke-width="4"/>
+              <text x="293" y="281" fill="#17406d">A</text>
+              <rect x="334" y="236" width="62" height="62" rx="10" fill="#fff" stroke="#c2410c" stroke-width="4"/>
+              <text x="365" y="281" fill="#c2410c">B</text>
+              <rect x="298" y="168" width="62" height="62" rx="10" fill="#fff" stroke="#2f7d5b" stroke-width="4"/>
+              <text x="329" y="213" fill="#2f7d5b">C</text>
+            </g>
+            <!-- pencil -->
+            <g transform="rotate(-28 150 150)">
+              <rect x="70" y="140" width="150" height="22" rx="4" fill="#f2b33d"/>
+              <path d="M220 140l26 11-26 11z" fill="#f6d9a8"/>
+              <path d="M240 148.5l6 2.5-6 2.5z" fill="#1f2933"/>
+              <rect x="56" y="140" width="16" height="22" rx="4" fill="#e88a8a"/>
+            </g>
+          </svg>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ===================== WHY ELYSS ===================== -->
+    <!-- Source: public school messaging (LinkedIn company pages, school portal, directory mission/vision). -->
+    <section class="section section--alt" id="why-elyss" aria-labelledby="why-title">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Why parents consider Elyss</span>
+          <h2 id="why-title">A caring Christian community where children grow in confidence</h2>
+          <p class="lead">Our vision is to be a Christian school of excellence that gives a firm foundation, and our mission is to bring out confident, well-rounded young learners ready to conquer the world.</p>
+        </div>
+        <div class="grid grid--4">
+          <article class="card">
+            <div class="icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M5 8h14"/></svg></div>
+            <h3>Christian values</h3>
+            <p>Learning takes place within a caring Christian community, guided by the school motto: “For God’s Glory.”</p>
+          </article>
+          <article class="card">
+            <div class="icon-badge icon-badge--sun" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg></div>
+            <h3>Fun learning</h3>
+            <p>A child-centred approach that helps children enjoy learning and stay curious.</p>
+          </article>
+          <article class="card">
+            <div class="icon-badge icon-badge--green" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V10l7-6 7 6v11M9 21v-6h6v6"/></svg></div>
+            <h3>Firm foundations</h3>
+            <p>An emphasis on strong early foundations that children can build on as they progress.</p>
+          </article>
+          <article class="card">
+            <div class="icon-badge icon-badge--cta" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 7h7l-5.5 4.5L18.5 21 12 16.5 5.5 21l2-7.5L2 9h7z"/></svg></div>
+            <h3>Confident, well-rounded learners</h3>
+            <p>Helping each child grow in confidence, in the classroom and beyond it.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== LEARNING STAGES + CURRICULUM ===================== -->
+    <section class="section" id="learning" aria-labelledby="learning-title">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Learning at Elyss</span>
+          <h2 id="learning-title">Early learning and primary education</h2>
+          <p class="lead">Not sure which class fits your child? Share their age in the enquiry form and the admissions team will advise on the right level and current availability.</p>
+        </div>
+
+        <!-- VERIFY: list only levels currently accepting admissions at the promoted campus.
+             Do not add grade ranges, class sizes or ratios until confirmed by the school. -->
+        <div class="grid grid--2">
+          <article class="card stage-card">
+            <span class="tag">Early years</span>
+            <h3>Playgroup &amp; Kindergarten</h3>
+            <p>A warm, child-centred start where young children learn through fun and begin building firm foundations for school.</p>
+            <a class="btn btn--outline" href="#enquire" data-prefill-level="Kindergarten" data-cta="primary" data-cta-location="stage_early_years">Enquire for early years</a>
+          </article>
+          <article class="card stage-card">
+            <span class="tag">Primary</span>
+            <h3>Primary school</h3>
+            <p>For parents seeking a primary placement or a transfer, with a focus on growing confident, well-rounded learners.</p>
+            <a class="btn btn--outline" href="#enquire" data-prefill-level="Primary" data-cta="primary" data-cta-location="stage_primary">Enquire for primary</a>
+          </article>
+        </div>
+
+        <div class="split" style="margin-top:56px">
+          <div>
+            <span class="eyebrow">Curriculum</span>
+            <h2>Learning pathways</h2>
+            <div class="pathway">
+              <h3>Competency-Based Education (CBE)</h3>
+              <p class="muted">Elyss School follows Kenya’s Competency-Based Education pathway.</p>
+            </div>
+            <!-- VERIFY BEFORE LAUNCH: the International Curriculum announcement (LinkedIn) –
+                 confirm approval, start date, which year groups and which campus.
+                 Remove this block if it cannot be confirmed. -->
+            <div class="pathway">
+              <h3>International Curriculum – Lusigetti Main Campus</h3>
+              <p class="muted">The school has announced an International Curriculum option alongside CBE at the Main Campus in Lusigetti from January 2027. Ask the admissions team for the latest details on levels and availability.</p>
+            </div>
+          </div>
+          <div>
+            <span class="eyebrow">Beyond the classroom</span>
+            <h2>Activities</h2>
+            <!-- VERIFY: activities mentioned in public school posts; confirm what is offered now. -->
+            <p class="muted">Children have opportunities to take part in activities beyond classroom learning, such as:</p>
+            <ul class="activities" style="justify-content:flex-start;margin-bottom:20px">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a15 15 0 0 1 0 20M2 12h20"/></svg>Sports</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2M16 3.1a4 4 0 0 1 0 7.8M21 21v-2a4 4 0 0 0-3-3.9"/></svg>Clubs</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22a10 10 0 1 1 10-10c0 2.8-2.2 3-4 3h-2a2 2 0 0 0-1.4 3.4A2 2 0 0 1 12 22z"/><circle cx="7.5" cy="10.5" r="1"/><circle cx="12" cy="7.5" r="1"/><circle cx="16.5" cy="10.5" r="1"/></svg>Art</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>Music</li>
+            </ul>
+            <p class="note">Ask the admissions team about the activities available at your preferred campus.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== CAMPUSES ===================== -->
+    <!-- VERIFY: confirm which campus(es) this campaign promotes, levels per campus and exact locations. -->
+    <section class="section section--alt" id="campuses" aria-labelledby="campuses-title">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Our campuses</span>
+          <h2 id="campuses-title">Two campuses in the Kikuyu area</h2>
+          <p class="lead">Choose your preferred campus in the enquiry form, or select “Not sure” and we’ll help you decide.</p>
+        </div>
+        <div class="grid grid--2">
+          <article class="card campus-card">
+            <div class="icon-badge icon-badge--green" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V10l7-6 7 6v11M9 21v-6h6v6"/></svg></div>
+            <h3>Foundation Campus – Thogoto</h3>
+            <ul class="meta">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Thogoto, Kikuyu Road, Kikuyu, Kiambu County</li>
+            </ul>
+            <div class="btn-row">
+              <a class="btn btn--primary" href="#enquire" data-prefill-campus="Thogoto Foundation Campus" data-cta="primary" data-cta-location="campus_thogoto">Enquire for Thogoto</a>
+              <!-- VERIFY: map search link; replace with the school's official Google Maps listing if available. -->
+              <a class="btn btn--outline" href="https://www.google.com/maps/search/?api=1&amp;query=Elyss+School+Thogoto+Kikuyu" target="_blank" rel="noopener" data-contact="map" data-contact-location="campus_thogoto">Get directions<span class="visually-hidden"> (opens in a new tab)</span></a>
+            </div>
+          </article>
+          <article class="card campus-card">
+            <div class="icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 21h20M4 21V8l8-5 8 5v13M9 21v-5h6v5M9 11h.01M15 11h.01"/></svg></div>
+            <h3>Main Campus – Lusigetti</h3>
+            <ul class="meta">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Lusigetti, Kikuyu, Kiambu County</li>
+            </ul>
+            <div class="btn-row">
+              <a class="btn btn--primary" href="#enquire" data-prefill-campus="Lusigetti Main Campus" data-cta="primary" data-cta-location="campus_lusigetti">Enquire for Lusigetti</a>
+              <a class="btn btn--outline" href="https://www.google.com/maps/search/?api=1&amp;query=Elyss+School+Lusigetti+Kikuyu" target="_blank" rel="noopener" data-contact="map" data-contact-location="campus_lusigetti">Get directions<span class="visually-hidden"> (opens in a new tab)</span></a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== ADMISSIONS PROCESS + FORM ===================== -->
+    <section class="section" id="admissions" aria-labelledby="admissions-title">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Admissions</span>
+          <h2 id="admissions-title">How to enquire</h2>
+        </div>
+        <!-- VERIFY: confirm the follow-up process and who responds to enquiries. -->
+        <ol class="steps" style="margin-bottom:64px">
+          <li><h3>Send an enquiry</h3><p class="muted" style="margin:0">Complete the short form below with your child’s age, the level you’re interested in and your preferred campus.</p></li>
+          <li><h3>We contact you</h3><p class="muted" style="margin:0">The admissions team uses your details to respond to your enquiry by your preferred contact method.</p></li>
+          <li><h3>Discuss next steps</h3><p class="muted" style="margin:0">Talk through the right class for your child, availability, fees and the admissions process.</p></li>
+        </ol>
+
+        <div class="enquiry-wrap" id="enquire">
+          <div class="enquiry-aside">
+            <span class="eyebrow">Admissions enquiry</span>
+            <h2>Enquire about admission</h2>
+            <p class="muted">It takes about a minute. Fields marked <span aria-hidden="true" style="color:var(--error)">*</span><span class="visually-hidden">with an asterisk</span> are required.</p>
+            <p class="muted">Prefer to talk? Reach the school directly:</p>
+            <!-- VERIFY: phone, WhatsApp and email must be confirmed as current admissions contacts. -->
+            <ul class="contact-list">
+              <li><a href="tel:+254711650405" data-contact="phone" data-contact-location="enquiry_aside">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>
+                <span>+254 711 650 405<small>Call the school</small></span></a></li>
+              <li><a href="https://wa.me/254711650405?text=Hello%20Elyss%20School%2C%20I%27d%20like%20to%20enquire%20about%20admission." target="_blank" rel="noopener" data-contact="whatsapp" data-contact-location="enquiry_aside">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.4 8.4 0 1 1 21 11.5z"/></svg>
+                <span>WhatsApp<small>Chat with the school (opens in a new tab)</small></span></a></li>
+              <li><a href="mailto:elyss.school@gmail.com?subject=Admission%20enquiry" data-contact="email" data-contact-location="enquiry_aside">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
+                <span>elyss.school@gmail.com<small>Email the school</small></span></a></li>
+            </ul>
+          </div>
+
+          <div class="form-card">
+            <!-- ================= FORM BACKEND =================
+                 Uses Netlify Forms. Netlify detects this form at deploy time
+                 because of data-netlify="true" (form detection must be enabled
+                 in Netlify: Site configuration → Forms). JavaScript submits it
+                 with fetch() and only shows success when Netlify returns 2xx.
+                 Without JavaScript, the browser posts normally and Netlify shows
+                 thanks.html. To use another backend, see FORM_CONFIG in the script. -->
+            <form id="enquiry-form" name="admissions-enquiry" method="POST" action="/thanks.html"
+                  data-netlify="true" netlify-honeypot="bot-field" novalidate aria-describedby="form-privacy">
+              <input type="hidden" name="form-name" value="admissions-enquiry">
+              <input type="hidden" name="page_url" value="">
+              <input type="hidden" name="utm_source" value="">
+              <input type="hidden" name="utm_medium" value="">
+              <input type="hidden" name="utm_campaign" value="">
+              <input type="hidden" name="utm_term" value="">
+              <input type="hidden" name="utm_content" value="">
+              <input type="hidden" name="gclid" value="">
+              <input type="hidden" name="fbclid" value="">
+              <p class="hp-field" aria-hidden="true"><label>Leave this field empty <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+
+              <div class="form-alert form-alert--error" id="form-error-summary" role="alert" tabindex="-1"></div>
+
+              <div class="form-grid">
+                <div class="field full" data-field="parent_name">
+                  <label for="parent_name">Parent / guardian full name<span class="req" aria-hidden="true">*</span></label>
+                  <input type="text" id="parent_name" name="parent_name" autocomplete="name" required maxlength="80" aria-describedby="parent_name-error">
+                  <p class="error-msg" id="parent_name-error"></p>
+                </div>
+
+                <div class="field" data-field="phone">
+                  <label for="phone">Phone number<span class="req" aria-hidden="true">*</span></label>
+                  <input type="tel" id="phone" name="phone" autocomplete="tel" inputmode="tel" required maxlength="20" placeholder="e.g. 0712 345 678" aria-describedby="phone-hint phone-error">
+                  <p class="hint" id="phone-hint">Kenyan or international number</p>
+                  <p class="error-msg" id="phone-error"></p>
+                </div>
+
+                <div class="field" data-field="email">
+                  <label for="email">Email <span class="opt">(optional)</span></label>
+                  <input type="email" id="email" name="email" autocomplete="email" maxlength="120" aria-describedby="email-error">
+                  <p class="error-msg" id="email-error"></p>
+                </div>
+
+                <div class="field" data-field="child_age">
+                  <label for="child_age">Child’s age<span class="req" aria-hidden="true">*</span></label>
+                  <select id="child_age" name="child_age" required aria-describedby="child_age-error">
+                    <option value="">Select age</option>
+                    <option>Under 2 years</option>
+                    <option>2 years</option><option>3 years</option><option>4 years</option>
+                    <option>5 years</option><option>6 years</option><option>7 years</option>
+                    <option>8 years</option><option>9 years</option><option>10 years</option>
+                    <option>11 years</option><option>12 years</option><option>13 years or older</option>
+                  </select>
+                  <p class="error-msg" id="child_age-error"></p>
+                </div>
+
+                <div class="field" data-field="level">
+                  <label for="level">Class / level of interest<span class="req" aria-hidden="true">*</span></label>
+                  <!-- VERIFY: keep options in line with levels currently offered. -->
+                  <select id="level" name="level" required aria-describedby="level-error">
+                    <option value="">Select level</option>
+                    <option>Playgroup</option>
+                    <option>Kindergarten</option>
+                    <option>Primary</option>
+                    <option>Not sure</option>
+                  </select>
+                  <p class="error-msg" id="level-error"></p>
+                </div>
+
+                <div class="field full" data-field="campus">
+                  <label for="campus">Preferred campus<span class="req" aria-hidden="true">*</span></label>
+                  <select id="campus" name="campus" required aria-describedby="campus-error">
+                    <option value="">Select campus</option>
+                    <option>Thogoto Foundation Campus</option>
+                    <option>Lusigetti Main Campus</option>
+                    <option>Not sure</option>
+                  </select>
+                  <p class="error-msg" id="campus-error"></p>
+                </div>
+
+                <fieldset class="field full" data-field="contact_method">
+                  <legend>Preferred contact method <span class="opt">(optional)</span></legend>
+                  <div class="radio-row">
+                    <label><input type="radio" name="contact_method" value="Call"> Call</label>
+                    <label><input type="radio" name="contact_method" value="WhatsApp"> WhatsApp</label>
+                    <label><input type="radio" name="contact_method" value="Email"> Email</label>
+                  </div>
+                </fieldset>
+
+                <div class="field full" data-field="heard_about">
+                  <label for="heard_about">How did you hear about Elyss School? <span class="opt">(optional)</span></label>
+                  <select id="heard_about" name="heard_about">
+                    <option value="">Select an option</option>
+                    <option>Google search</option>
+                    <option>Facebook / Instagram</option>
+                    <option>LinkedIn</option>
+                    <option>Friend or family</option>
+                    <option>Current Elyss parent</option>
+                    <option>Signage / drove past</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+
+                <div class="field full" data-field="message">
+                  <label for="message">Your question or message <span class="opt">(optional)</span></label>
+                  <textarea id="message" name="message" maxlength="600" aria-describedby="message-hint message-error"></textarea>
+                  <p class="hint" id="message-hint">Please don’t include medical or other sensitive information about your child.</p>
+                  <p class="error-msg" id="message-error"></p>
+                </div>
+
+                <div class="field full" data-field="consent">
+                  <label class="check" for="consent">
+                    <input type="checkbox" id="consent" name="consent" value="yes" required aria-describedby="consent-error">
+                    <span>I agree that Elyss School may use these details to respond to my admissions enquiry.<span class="req" aria-hidden="true">*</span></span>
+                  </label>
+                  <p class="error-msg" id="consent-error"></p>
+                </div>
+
+                <div class="full">
+                  <button type="submit" class="btn btn--primary btn--block" id="submit-btn">
+                    <span class="spinner" aria-hidden="true"></span>
+                    <span class="btn-label">Send Admission Enquiry</span>
+                  </button>
+                  <p class="small muted" id="form-privacy" style="margin:12px 0 0">We only use your details to respond to your enquiry. See our <a href="#privacy">privacy notice</a>.</p>
+                </div>
+              </div>
+            </form>
+
+            <div class="form-success" id="form-success" role="status" tabindex="-1" aria-live="polite">
+              <div class="icon-ok" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+              <h3>Thank you – your enquiry has been sent</h3>
+              <p class="muted">The Elyss School admissions team has received your details and will contact you. If your enquiry is urgent, please call <a href="tel:+254711650405" data-contact="phone" data-contact-location="form_success">+254 711 650 405</a>.</p>
+              <button type="button" class="btn btn--outline" id="form-reset">Send another enquiry</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FAQS ===================== -->
+    <!-- Answers use only verified/public information; anything unconfirmed directs parents to admissions. -->
+    <section class="section section--alt" id="faqs" aria-labelledby="faqs-title">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">FAQs</span>
+          <h2 id="faqs-title">Questions parents often ask</h2>
+        </div>
+        <div class="faq">
+          <details>
+            <summary>Which levels does Elyss School offer?</summary>
+            <div class="answer"><p>Elyss School offers early learning and primary education. Availability varies by class and campus, so share your child’s age in the <a href="#enquire">enquiry form</a> and the admissions team will confirm the right level.</p></div>
+          </details>
+          <details>
+            <summary>What curriculum does the school follow?</summary>
+            <div class="answer"><p>The school follows Kenya’s Competency-Based Education (CBE) pathway. It has also announced an International Curriculum option at the Lusigetti Main Campus from January 2027 – please ask the admissions team for current details.</p></div>
+          </details>
+          <details>
+            <summary>Where are the campuses?</summary>
+            <div class="answer"><p>Elyss School has a Foundation Campus in Thogoto (Kikuyu Road, Kikuyu) and a Main Campus in Lusigetti, both in Kiambu County. See <a href="#campuses">campus details and directions</a>.</p></div>
+          </details>
+          <details>
+            <summary>Is Elyss a Christian school?</summary>
+            <div class="answer"><p>Yes. Elyss School is a private, Christian, child-centred school. Its motto is “Fun Learning. For a Firm Foundation. For God’s Glory.”</p></div>
+          </details>
+          <details>
+            <summary>How much are the school fees?</summary>
+            <div class="answer"><p>Please contact the admissions team for the current fee structure and any additional charges. You can ask in the <a href="#enquire">enquiry form</a> or <a href="tel:+254711650405" data-contact="phone" data-contact-location="faq">call the school</a>.</p></div>
+          </details>
+          <details>
+            <summary>Can I visit the school?</summary>
+            <div class="answer"><p>If you would like to see the school, mention it in your enquiry message or call the school, and the admissions team will advise you on the options.</p></div>
+          </details>
+          <details>
+            <summary>Do you offer transport, meals or after-school care?</summary>
+            <div class="answer"><p>Please ask the admissions team about transport, meals, school hours and other services at your preferred campus.</p></div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FINAL CTA ===================== -->
+    <section class="section" aria-labelledby="final-cta-title">
+      <div class="container">
+        <div class="final-cta">
+          <h2 id="final-cta-title">Give your child a firm foundation</h2>
+          <p>Send a short enquiry and the Elyss School admissions team will help you find the right class and campus for your child.</p>
+          <div class="btn-row">
+            <a class="btn btn--light" href="#enquire" data-cta="primary" data-cta-location="final_cta">Enquire About Admission</a>
+            <a class="btn btn--ghost-light" href="https://wa.me/254711650405?text=Hello%20Elyss%20School%2C%20I%27d%20like%20to%20enquire%20about%20admission." target="_blank" rel="noopener" data-contact="whatsapp" data-contact-location="final_cta">Chat on WhatsApp<span class="visually-hidden"> (opens in a new tab)</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h2>Elyss School</h2>
+          <p class="footer-motto">Fun Learning. For a Firm Foundation. For God’s Glory.</p>
+          <p>A private, Christian, child-centred school offering early learning and primary education in Kikuyu, Kiambu County, Kenya.</p>
+        </div>
+        <div>
+          <h2>Contact</h2>
+          <!-- VERIFY all contact details and the official website domain. -->
+          <ul class="footer-list">
+            <li><a href="tel:+254711650405" data-contact="phone" data-contact-location="footer">+254 711 650 405</a></li>
+            <li><a href="https://wa.me/254711650405" target="_blank" rel="noopener" data-contact="whatsapp" data-contact-location="footer">WhatsApp<span class="visually-hidden"> (opens in a new tab)</span></a></li>
+            <li><a href="mailto:elyss.school@gmail.com" data-contact="email" data-contact-location="footer">elyss.school@gmail.com</a></li>
+            <li><a href="https://www.elyssschool.co.ke/" target="_blank" rel="noopener">elyssschool.co.ke<span class="visually-hidden"> (opens in a new tab)</span></a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Campuses</h2>
+          <ul class="footer-list">
+            <li>Foundation Campus – Thogoto, Kikuyu Road, Kikuyu</li>
+            <li>Main Campus – Lusigetti, Kikuyu</li>
+          </ul>
+          <!-- Add verified social media links here (Facebook, Instagram, LinkedIn) once confirmed. -->
+        </div>
+      </div>
+
+      <div id="privacy" style="margin-top:36px">
+        <h2>Privacy notice</h2>
+        <p class="small">Details you submit through the enquiry form are sent to Elyss School and used only to respond to your admissions enquiry. Please don’t include sensitive information about your child. With your permission, this site uses cookies to understand how the page is used and to measure advertising. You can change your choice at any time using “Cookie settings”.</p>
+        <!-- VERIFY: link to the school's full privacy policy (Kenya Data Protection Act, 2019) once available. -->
+      </div>
+
+      <div class="footer-bottom">
+        <span>© <span id="year">2026</span> Elyss School. All rights reserved.</span>
+        <span><a href="#privacy">Privacy</a> · <button type="button" class="linklike" id="cookie-settings">Cookie settings</button> · <a href="#top">Back to top</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===================== STICKY MOBILE ACTION BAR ===================== -->
+  <div class="mobile-bar" id="mobile-bar">
+    <a class="btn btn--primary" href="#enquire" data-cta="primary" data-cta-location="mobile_bar">Enquire Now</a>
+    <a class="btn btn--outline" href="tel:+254711650405" data-contact="phone" data-contact-location="mobile_bar" aria-label="Call the school">Call</a>
+    <a class="btn btn--outline" href="https://wa.me/254711650405?text=Hello%20Elyss%20School%2C%20I%27d%20like%20to%20enquire%20about%20admission." target="_blank" rel="noopener" data-contact="whatsapp" data-contact-location="mobile_bar" aria-label="Chat on WhatsApp (opens in a new tab)">WhatsApp</a>
+  </div>
+
+  <!-- ===================== COOKIE CONSENT ===================== -->
+  <div class="consent" id="consent-banner" role="region" aria-labelledby="consent-title">
+    <h2 id="consent-title">Cookies on this page</h2>
+    <p>We’d like to use analytics and advertising cookies to understand how this page is used and to improve our admissions outreach. You can accept or reject them. See our <a href="#privacy">privacy notice</a>.</p>
+    <div class="btn-row">
+      <button type="button" class="btn btn--primary" id="consent-accept">Accept</button>
+      <button type="button" class="btn btn--outline" id="consent-reject">Reject</button>
+    </div>
+  </div>
+
+  <script>
+  (function () {
+    'use strict';
+
+    /* ===================================================================
+       FORM BACKEND CONFIG
+       - "netlify"  : POSTs url-encoded data to Netlify Forms (default).
+       - "endpoint" : POSTs to a third-party service (e.g. Formspree,
+                      Basin, Getform) that returns JSON. Set ENDPOINT_URL.
+       Success is ONLY shown when the backend returns an HTTP 2xx status.
+       =================================================================== */
+    var FORM_CONFIG = {
+      provider: 'netlify',          // 'netlify' | 'endpoint'
+      NETLIFY_POST_PATH: '/',       // Netlify accepts form posts on any page path
+      ENDPOINT_URL: '',             // e.g. 'https://formspree.io/f/xxxxxxx'
+      TIMEOUT_MS: 15000
+    };
+    var CONSENT_KEY = 'elyss_consent_v1';
+
+    var dl = window.dataLayer = window.dataLayer || [];
+
+    /* ---------- Helpers ---------- */
+    function $(sel, ctx) { return (ctx || document).querySelector(sel); }
+    function $all(sel, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(sel)); }
+    function cleanText(el) { return (el.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 100); }
+
+    var yearEl = $('#year');
+    if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+    /* ---------- Mobile navigation ---------- */
+    var navToggle = $('.nav-toggle');
+    var nav = $('#primary-nav');
+    function setNav(open) {
+      nav.classList.toggle('is-open', open);
+      navToggle.setAttribute('aria-expanded', String(open));
+      navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      navToggle.querySelector('path').setAttribute('d', open ? 'M6 6l12 12M18 6 6 18' : 'M4 7h16M4 12h16M4 17h16');
+    }
+    navToggle.addEventListener('click', function () { setNav(!nav.classList.contains('is-open')); });
+    nav.addEventListener('click', function (e) { if (e.target.closest('a')) setNav(false); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && nav.classList.contains('is-open')) { setNav(false); navToggle.focus(); }
+    });
+    window.addEventListener('resize', function () { if (window.innerWidth >= 1000) setNav(false); });
+
+    /* ---------- Analytics: cta_click + contact_click ----------
+       No personal data is ever included in these events. */
+    document.addEventListener('click', function (e) {
+      var cta = e.target.closest('[data-cta="primary"]');
+      if (cta) {
+        dl.push({
+          event: 'cta_click',
+          cta_text: cleanText(cta),
+          cta_location: cta.getAttribute('data-cta-location') || 'unknown',
+          link_url: cta.getAttribute('href') || ''
+        });
+      }
+      var contact = e.target.closest('[data-contact]');
+      if (contact) {
+        dl.push({
+          event: 'contact_click',
+          contact_method: contact.getAttribute('data-contact'),        // phone | whatsapp | email | map
+          contact_location: contact.getAttribute('data-contact-location') || 'unknown'
+        });
+      }
+    });
+
+    /* ---------- CTA prefill (level / campus) ---------- */
+    var form = $('#enquiry-form');
+    $all('[data-prefill-level],[data-prefill-campus]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var lvl = btn.getAttribute('data-prefill-level');
+        var cmp = btn.getAttribute('data-prefill-campus');
+        if (lvl && form.level) form.level.value = lvl;
+        if (cmp && form.campus) form.campus.value = cmp;
+      });
+    });
+
+    /* Move focus to the first field when arriving at the form via a CTA. */
+    $all('a[href="#enquire"]').forEach(function (a) {
+      a.addEventListener('click', function () {
+        setTimeout(function () {
+          var first = $('#parent_name');
+          if (first && $('#form-success').classList.contains('is-visible') === false) {
+            first.focus({ preventScroll: true });
+          }
+        }, 450);
+      });
+    });
+
+    /* ---------- Attribution (UTM / click IDs) -> hidden fields ---------- */
+    (function captureAttribution() {
+      var params = new URLSearchParams(window.location.search);
+      ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'fbclid'].forEach(function (k) {
+        var stored = null;
+        try { stored = sessionStorage.getItem('elyss_' + k); } catch (e) {}
+        var val = params.get(k) || stored || '';
+        if (params.get(k)) { try { sessionStorage.setItem('elyss_' + k, params.get(k)); } catch (e) {} }
+        if (form.elements[k]) form.elements[k].value = val.slice(0, 200);
+      });
+      form.elements.page_url.value = window.location.origin + window.location.pathname;
+    })();
+
+    /* ---------- Validation ---------- */
+    function normalisePhone(v) { return v.replace(/[\s\-().]/g, ''); }
+    function isValidPhone(v) {
+      var p = normalisePhone(v);
+      // Kenyan mobile/landline formats: 07xx/01xx, +2547xx/+2541xx, 2547xx
+      if (/^(?:\+?254|0)(?:7|1)\d{8}$/.test(p)) return true;
+      // Other international numbers in E.164 style
+      return /^\+[1-9]\d{7,14}$/.test(p);
+    }
+    var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+    var rules = {
+      parent_name: function (v) {
+        v = v.trim();
+        if (!v) return 'Please enter your full name.';
+        if (v.length < 2) return 'Name must be at least 2 characters.';
+        if (!/^[\p{L}\s.'’-]+$/u.test(v)) return 'Please use letters only in your name.';
+        return '';
+      },
+      phone: function (v) {
+        if (!v.trim()) return 'Please enter a phone number so the school can reach you.';
+        if (!isValidPhone(v)) return 'Enter a valid phone number, e.g. 0712 345 678 or +254 712 345 678.';
+        return '';
+      },
+      email: function (v) {
+        if (v.trim() && !EMAIL_RE.test(v.trim())) return 'Enter a valid email address, e.g. name@example.com.';
+        if (!v.trim() && getContactMethod() === 'Email') return 'Please add an email address, or choose another contact method.';
+        return '';
+      },
+      child_age: function (v) { return v ? '' : 'Please select your child’s age.'; },
+      level: function (v) { return v ? '' : 'Please select a class or level (or “Not sure”).'; },
+      campus: function (v) { return v ? '' : 'Please select a campus (or “Not sure”).'; },
+      message: function (v) { return v.length > 600 ? 'Please keep your message under 600 characters.' : ''; },
+      consent: function (_, el) { return el.checked ? '' : 'Please confirm the school may use your details to respond.'; }
+    };
+    var labels = {
+      parent_name: 'Parent / guardian full name', phone: 'Phone number', email: 'Email',
+      child_age: 'Child’s age', level: 'Class / level of interest', campus: 'Preferred campus',
+      message: 'Message', consent: 'Consent'
+    };
+
+    function getContactMethod() {
+      var r = form.querySelector('input[name="contact_method"]:checked');
+      return r ? r.value : '';
+    }
+
+    function validateField(name) {
+      var el = form.elements[name];
+      var wrap = form.querySelector('[data-field="' + name + '"]');
+      var msg = rules[name](el.value || '', el);
+      var errEl = document.getElementById(name + '-error');
+      wrap.classList.toggle('has-error', !!msg);
+      el.setAttribute('aria-invalid', msg ? 'true' : 'false');
+      if (errEl) errEl.textContent = msg;
+      return msg;
+    }
+
+    Object.keys(rules).forEach(function (name) {
+      var el = form.elements[name];
+      var evt = (el.tagName === 'SELECT' || el.type === 'checkbox') ? 'change' : 'blur';
+      el.addEventListener(evt, function () { validateField(name); });
+      el.addEventListener('input', function () {
+        if (form.querySelector('[data-field="' + name + '"]').classList.contains('has-error')) validateField(name);
+      });
+    });
+    $all('input[name="contact_method"]').forEach(function (r) {
+      r.addEventListener('change', function () { if (form.elements.email.value || getContactMethod() !== 'Email') validateField('email'); });
+    });
+
+    var summary = $('#form-error-summary');
+    function showSummary(errors) {
+      if (!errors.length) { summary.classList.remove('is-visible'); summary.innerHTML = ''; return; }
+      summary.innerHTML = 'Please fix the following:<ul>' + errors.map(function (n) {
+        return '<li><a href="#' + n + '">' + labels[n] + '</a></li>';
+      }).join('') + '</ul>';
+      summary.classList.add('is-visible');
+    }
+    summary.addEventListener('click', function (e) {
+      var a = e.target.closest('a');
+      if (!a) return;
+      e.preventDefault();
+      var t = document.getElementById(a.getAttribute('href').slice(1));
+      if (t) { t.focus(); t.scrollIntoView({ block: 'center' }); }
+    });
+
+    function showSubmitError(html) {
+      summary.innerHTML = html;
+      summary.classList.add('is-visible');
+      summary.focus();
+    }
+
+    /* ---------- Submission ---------- */
+    var submitBtn = $('#submit-btn');
+    var successEl = $('#form-success');
+    var submitting = false;
+
+    function setBusy(b) {
+      submitting = b;
+      submitBtn.disabled = b;
+      submitBtn.setAttribute('aria-busy', String(b));
+      submitBtn.querySelector('.btn-label').textContent = b ? 'Sending…' : 'Send Admission Enquiry';
+    }
+
+    function sendToBackend(fd) {
+      var controller = ('AbortController' in window) ? new AbortController() : null;
+      var timer = controller ? setTimeout(function () { controller.abort(); }, FORM_CONFIG.TIMEOUT_MS) : null;
+      var req;
+      if (FORM_CONFIG.provider === 'endpoint') {
+        if (!FORM_CONFIG.ENDPOINT_URL) return Promise.reject(new Error('No form endpoint configured'));
+        req = fetch(FORM_CONFIG.ENDPOINT_URL, {
+          method: 'POST', body: fd, headers: { 'Accept': 'application/json' },
+          signal: controller ? controller.signal : undefined
+        });
+      } else {
+        req = fetch(FORM_CONFIG.NETLIFY_POST_PATH, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(fd).toString(),
+          signal: controller ? controller.signal : undefined
+        });
+      }
+      return req.then(function (res) {
+        if (timer) clearTimeout(timer);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res;
+      }, function (err) { if (timer) clearTimeout(timer); throw err; });
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (submitting) return;
+
+      var errors = Object.keys(rules).filter(function (n) { return !!validateField(n); });
+      showSummary(errors);
+      if (errors.length) {
+        var first = form.elements[errors[0]];
+        if (first) first.focus();
+        dl.push({ event: 'form_validation_error', form_name: 'admissions_enquiry', error_count: errors.length });
+        return;
+      }
+
+      // Honeypot – silently stop obvious bots (no success state, no lead event).
+      if (form.elements['bot-field'].value) return;
+
+      var fd = new FormData(form);
+      fd.set('phone', normalisePhone(fd.get('phone')));
+
+      setBusy(true);
+      sendToBackend(fd).then(function () {
+        // Genuine success: backend returned 2xx.
+        var campus = form.elements.campus.value;
+        var level = form.elements.level.value;
+        var method = getContactMethod() || 'not_specified';
+        dl.push({
+          event: 'generate_lead',
+          form_name: 'admissions_enquiry',
+          form_provider: FORM_CONFIG.provider,
+          enquiry_campus: campus,       // category value only – no personal data
+          enquiry_level: level,         // category value only – no personal data
+          contact_preference: method
+        });
+        form.reset();
+        form.hidden = true;
+        showSummary([]);
+        successEl.classList.add('is-visible');
+        successEl.focus();
+      }).catch(function (err) {
+        dl.push({ event: 'form_submit_error', form_name: 'admissions_enquiry', error_type: (err && err.name === 'AbortError') ? 'timeout' : 'request_failed' });
+        showSubmitError(
+          'Sorry, your enquiry could not be sent. Your details have not been submitted. ' +
+          'Please check your connection and try again, or contact the school directly: ' +
+          '<a href="tel:+254711650405" data-contact="phone" data-contact-location="form_error">call +254 711 650 405</a> or ' +
+          '<a href="https://wa.me/254711650405" target="_blank" rel="noopener" data-contact="whatsapp" data-contact-location="form_error">WhatsApp</a>.'
+        );
+      }).then(function () { setBusy(false); });
+    });
+
+    $('#form-reset').addEventListener('click', function () {
+      successEl.classList.remove('is-visible');
+      form.hidden = false;
+      // Re-populate attribution hidden fields cleared by reset
+      form.elements.page_url.value = window.location.origin + window.location.pathname;
+      ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'fbclid'].forEach(function (k) {
+        try { form.elements[k].value = sessionStorage.getItem('elyss_' + k) || ''; } catch (e) {}
+      });
+      $('#parent_name').focus();
+    });
+
+    /* ---------- Sticky mobile bar: hide while the form is on screen ---------- */
+    var bar = $('#mobile-bar');
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) { bar.classList.toggle('is-hidden', en.isIntersecting); });
+      }, { threshold: 0.15 });
+      io.observe($('#enquire'));
+    }
+
+    /* ---------- Consent banner (Google Consent Mode v2) ---------- */
+    var banner = $('#consent-banner');
+    function readConsent() { try { return localStorage.getItem(CONSENT_KEY); } catch (e) { return null; } }
+    function applyConsent(choice) {
+      var state = choice === 'granted' ? 'granted' : 'denied';
+      try { localStorage.setItem(CONSENT_KEY, state); } catch (e) {}
+      window.gtag('consent', 'update', {
+        ad_storage: state, ad_user_data: state, ad_personalization: state, analytics_storage: state
+      });
+      dl.push({ event: 'consent_update', consent_state: state });
+      banner.classList.remove('is-visible');
+    }
+    if (!readConsent()) banner.classList.add('is-visible');
+    $('#consent-accept').addEventListener('click', function () { applyConsent('granted'); });
+    $('#consent-reject').addEventListener('click', function () { applyConsent('denied'); });
+    $('#cookie-settings').addEventListener('click', function () {
+      banner.classList.add('is-visible');
+      $('#consent-accept').focus();
+    });
+  })();
+  </script>
+</body>
+</html>
